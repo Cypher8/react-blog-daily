@@ -1,0 +1,14 @@
+.custom-wrapper{
+    border-style: solid; 
+    border-width: .75px .75px .75px .75px;
+    border-color:#d2d2d2;
+    border-radius: 4px;
+}
+
+.custom-editor{
+    padding: 10px;
+    min-height: 250px;
+    background-color: #FAFAFA;
+    border-radius: 0px 0px 4px 4px;
+    overflow: hidden;
+}

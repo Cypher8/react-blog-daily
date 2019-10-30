@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Paper, Grid, Typography, Divider, CardActionArea, Card, CardContent, Hidden, CardMedia, } from '@material-ui/core';
-import Markdown from '../MarkDown';
+import { Grid, Typography, CardActionArea, Card, CardContent, Hidden, CardMedia, } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({
     card: {
@@ -11,6 +10,7 @@ const styles = theme => ({
     },
     cardMedia: {
         width: 160,
+        height: 128
     },
     markdown: {
         ...theme.typography.body2,
@@ -29,28 +29,28 @@ class MainContent extends Component {
     render() {
         const { classes, posts } = this.props;
         return (
-            <Grid item xs={12} md={8}>
+            <Grid item xs={12}>
                 <Grid className={classes.title}>
                     <Typography variant="h5" gutterBottom>
-                        My Dialy
+                        My Daily
                     </Typography>
                 </Grid>
                 {/* <Divider /> */}
                 <Grid container spacing={2}>
-                    {posts.map((post, index) => (
-                        <Grid item key={post.title} xs={12} md={12} onClick={() => this.props.onClick(post)}>
+                    {posts.map((post) => (
+                        <Grid item key={post.id} xs={12} md={12} onClick={() => this.props.onClick(post)}>
                             <CardActionArea>
                                 <Card className={classes.card} >
                                     <div className={classes.cardDetails}>
                                         <CardContent>
                                             <Typography component="h2" variant="h5">
-                                                Day {index}: {post.title}
+                                                {post.title}
                                             </Typography>
-                                            <Typography variant="subtitle1" color="textSecondary">
-                                                {post.date}
+                                            <Typography variant="subtitle2" color="textSecondary">
+                                                Post by {post.user.firstName}
                                             </Typography>
-                                            <Typography variant="subtitle1" paragraph>
-                                                {post.description}
+                                            <Typography variant="subtitle2" color="textSecondary">
+                                                On {post.createAt}
                                             </Typography>
                                             {/* <Typography variant="subtitle1" color="primary">
                                                 Continue reading...

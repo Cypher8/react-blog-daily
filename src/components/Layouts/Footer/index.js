@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { Container, Typography, Link} from '@material-ui/core';
+import { Container, Typography, Link } from '@material-ui/core';
 
 const styles = theme => ({
     footer: {
@@ -17,10 +17,10 @@ class Footer extends Component {
             <footer className={classes.footer}>
                 <Container maxWidth="lg">
                     <Typography variant="h6" align="center" gutterBottom>
-                        Footer
+                        It's your story
                     </Typography>
                     <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-                        Something here to give the footer a purpose!
+                        Write something that will tell your story.
                     </Typography>
                     <Typography variant="body2" color="textSecondary" align="center">
                         {'Copyright © '}

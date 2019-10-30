@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Paper, Grid, Typography, Link } from '@material-ui/core';
+import { Paper, Grid, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({
     mainFeaturedPost: {
@@ -18,6 +18,7 @@ const styles = theme => ({
         bottom: 0,
         right: 0,
         left: 0,
+        zIndex: 1,
         backgroundColor: 'rgba(0,0,0,.3)',
     },
     mainFeaturedPostContent: {
@@ -51,15 +52,11 @@ class MainFeaturedPost extends Component {
                     <Grid item md={6}>
                         <div className={classes.mainFeaturedPostContent}>
                             <Typography component="h1" variant="h3" color="inherit" gutterBottom>
-                                Title of a longer featured blog post
-                  </Typography>
+                                It's your story
+                            </Typography>
                             <Typography variant="h5" color="inherit" paragraph>
-                                Multiple lines of text that form the lede, informing new readers quickly and
-                                efficiently about what&apos;s most interesting in this post&apos;s contents.
-                  </Typography>
-                            <Link variant="subtitle1" href="#">
-                                Continue reading…
-                  </Link>
+                            Write something that will tell your story. About precious experiences and to save a story as a memory, just create it on your blog
+                            </Typography>
                         </div>
                     </Grid>
                 </Grid>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { DialogTitle, DialogContent, IconButton, Slide, Dialog, Button, Grid, TextField, Container, FormControlLabel, Checkbox } from "@material-ui/core";
+import { DialogContent, IconButton, Slide, Dialog, Button, Grid, TextField, Container, Typography, Link } from "@material-ui/core";
 import CloseIcon from '@material-ui/icons/Close';
+import Alert from '../Alert';
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -9,16 +10,36 @@ class LoginDialog extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isChecked: false
+            email: '',
+            password: '',
         }
     }
 
-    handleChange = event => {
-        this.setState({ isChecked: event.target.checked });
+    handleChange = property => event => {
+        this.setState({ [property]: event.target.value });
     }
+    handleSubmit = () => {
+        const { email, password } = this.state;
+        if (email.trim() && password.trim())
+            this.props.onSubmit({ email, password })
+    }
+    propsTextField = (type) => ({
+        id: `outlined-${type}-input`,
+        label: type,
+        type: type,
+        name: type,
+        margin: "dense",
+        variant: "outlined",
+    })
+
     render() {
-        const { open, onClose } = this.props;
-        const { isChecked } = this.state;
+        const { open, onClose, errorVisible, alert, OnDismiss } = this.props;
+        const girdColCenter = {
+            container: true,
+            direction: "column",
+            justify: "center",
+            alignItems: "center",
+        }
         return (
             <React.Fragment>
                 <Dialog
@@ -27,6 +48,7 @@ class LoginDialog extends Component {
                     aria-labelledby="alert-dialog-slide-title"
                     aria-describedby="alert-dialog-slide-description"
                     onClose={onClose}
+                    fullWidth
                 >
                     <div style={styles.titleContainer}>
                         <IconButton aria-label="close" style={styles.closeButton} onClick={onClose}>
@@ -35,54 +57,66 @@ class LoginDialog extends Component {
                     </div>
                     <DialogContent>
                         <Container>
-                            <Grid container>
-                                <h2>Shoes store</h2>
-                            </Grid>
-                            <Grid container direction="column" alignItems="center">
-                                <Grid item sm={12}>
-                                    <TextField
-                                        id="outlined-email-input"
-                                        label="Email"
-                                        type="email"
-                                        name="email"
-                                        autoComplete="email"
-                                        margin="dense"
-                                        variant="outlined"
-                                    />
+                            <Grid
+                                {...girdColCenter}
+                                spacing={2}>
+                                <Grid
+                                    {...girdColCenter}
+                                    item
+                                    md={8}>
+                                    <Typography variant="h6">
+                                        Welcome to Daily Blog
+                                    </Typography>
+                                    <Typography variant="body2" color="textSecondary" style={{ textAlign: 'center' }}>
+                                        Login to get personalized story recommendations, follow authors and topics you love, and interact with stories.
+                                    </Typography>
                                 </Grid>
-                                <Grid item>
-                                    <TextField
-                                        id="outlined-password-input"
-                                        label="Password"
-                                        type="password"
-                                        name="password"
-                                        margin="dense"
-                                        variant="outlined"
-                                    />
+                                <Grid
+                                    {...girdColCenter}
+                                    item
+                                    md={8}
+                                >
+                                    <Grid item>
+                                        <TextField
+                                            {...this.propsTextField('email')}
+                                            autoComplete='email'
+                                            onChange={this.handleChange('email')}
+                                        />
+                                    </Grid>
+                                    <Grid item>
+                                        <TextField
+                                            {...this.propsTextField('password')}
+                                            onChange={this.handleChange('password')}
+                                        />
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-                            <Grid container direction="column">
-                                <Grid>
-                                    <FormControlLabel
-                                        control={
-                                            <Checkbox
-                                                checked={isChecked}
-                                                onChange={this.handleChange}
-                                                value="checked"
-                                                color="primary"
-                                            />
-                                        }
-                                        label="ให้ฉันอยู่ในระบบต่อไป"
-                                    />
+                                <Grid
+                                    {...girdColCenter}
+                                    item
+                                    md={10}>
+                                    <Alert
+                                        visible={errorVisible}
+                                        variant={alert.type}
+                                        message={alert.message}
+                                        OnDismiss={OnDismiss} />
                                 </Grid>
-                                <Grid item>
-                                    <p>ลืมรหัสผ่านใช่ไหม</p>
+                                <Grid item md={8}>
+                                    <Link
+                                        color="inherit"
+                                        component="button"
+                                        variant="body2"
+                                    >
+                                        ลืมรหัสผ่านใช่ไหม
+                                    </Link>
                                 </Grid>
-                            </Grid>
-                            <Grid container>
-                                <Button style={styles.login}>
-                                    Login
-                                </Button>
+                                <Grid item md={8} container>
+                                    <Button
+                                        style={styles.login}
+                                        fullWidth
+                                        onClick={this.handleSubmit}>
+                                        Login
+                                    </Button>
+                                </Grid>
                             </Grid>
                         </Container>
                     </DialogContent>
@@ -93,7 +127,7 @@ class LoginDialog extends Component {
 }
 
 const styles = {
-    titleContainer:{
+    titleContainer: {
         height: 50
     },
     closeButton: {

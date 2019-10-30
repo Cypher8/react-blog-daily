@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import '../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Router } from "react-router-dom";
